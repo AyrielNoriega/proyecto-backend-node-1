@@ -16,7 +16,7 @@ async function get(tabla, id) {
     return col.filter(item => item.id == id)[0] || null
 }
 
-async function upser(tabla, data) {
+async function upsert(tabla, data) {
     if (!db[tabla]) {
         db[tabla] = []
     }
@@ -31,6 +31,6 @@ async function remove(tabla, id) {
 module.exports = {
     list,
     get,
-    upser,
+    upsert,
     remove
 }

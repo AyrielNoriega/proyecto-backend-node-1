@@ -1,10 +1,19 @@
 const express = require('express');
-const router = express.Router();
 
 const response = require('../../network/response');
 const controller = require('./index');
 
-router.get('/', (req, res) => {
+
+const router = express.Router();
+// Routes
+router.get('/', list);
+router.get('/:id', get);
+router.post('/', upsert);
+router.put('/', upsert);
+router.delete('/:id', remove);
+
+
+function list(req, res) {
     // res.send('All users');
     controller.list()
         .then((data) => {
@@ -14,9 +23,9 @@ router.get('/', (req, res) => {
             response.error(req, res, err.message, 500);
         });
     
-});
+};
 
-router.get('/:id', (req, res) => {
+function get(req, res) {
     controller.get(req.params.id)
         .then((data) => {
             response.success(req, res, data, 200);
@@ -24,19 +33,20 @@ router.get('/:id', (req, res) => {
         .catch((err) => {
             response.error(req, res, err.message, 500);
         });
-});
+};
 
-router.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('User created');
-});
+function upsert(req, res) {
+    controller.upsert(req.body)
+        .then((data) => {
+            response.success(req, res, data, 201);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        });
+};
 
-router.put('/', (req, res) => {
-    res.send('User updated');
-});
-
-router.delete('/:id', (req, res) => {
+function remove (req, res) {
     res.send('User deleted');
-});
+};
 
 module.exports = router;

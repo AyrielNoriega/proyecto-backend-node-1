@@ -1,3 +1,9 @@
+let nanoid;
+
+(async () => {
+    nanoid = (await import('nanoid')).nanoid;
+})();
+
 const TABLA = 'user';
 
 
@@ -13,6 +19,15 @@ module.exports = function (injectedStore) {
 
     function get(id) {
         return store.get('user', id);
+    }
+
+    function upsert(data) {
+        const user = {
+            id: data.id || nanoid(),
+            name: data.name,
+        }
+
+        return store.upsert(TABLA, user);
     }
 
 

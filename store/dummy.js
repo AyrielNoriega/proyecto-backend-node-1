@@ -7,16 +7,16 @@ const db = {
     ],
 }
 
-function list(tabla) {
+async function list(tabla) {
     return db[tabla] || []
 }
 
-function get(tabla, id) {
-    let col = list(tabla)
-    return col.filter(item => item.id === id)[0] || null
+async function get(tabla, id) {
+    let col = await list(tabla)
+    return col.filter(item => item.id == id)[0] || null
 }
 
-function upser(tabla, data) {
+async function upser(tabla, data) {
     if (!db[tabla]) {
         db[tabla] = []
     }
@@ -24,7 +24,7 @@ function upser(tabla, data) {
     console.log(db)
 }
 
-function remove(tabla, id) {
+async function remove(tabla, id) {
     return true
 }
 

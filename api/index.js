@@ -3,6 +3,7 @@ const bodyparser = require('body-parser');
 
 
 const user = require('./components/user/network');
+const auth = require('./components/auth/network');
 const config = require('../config.js');
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(bodyparser.json());
 
 // Routes
 app.use('/api/users', user);
+app.use('/api/auth', auth);
 
 app.listen(config.api.port, () => {
     console.log(`Hey, Server is running on port ${config.api.port}`);
